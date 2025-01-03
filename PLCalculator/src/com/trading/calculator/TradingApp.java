@@ -5,7 +5,6 @@ import java.util.Scanner;
 public class TradingApp {
 
     public static void main(String[] args) {
-
         ContractManager contractManager = new ContractManager();
         contractManager.listAllContracts();
 
@@ -45,6 +44,7 @@ public class TradingApp {
         }
 
         scanner.close();
+
     }
 }
 
