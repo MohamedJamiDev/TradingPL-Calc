@@ -2,18 +2,16 @@ package com.trading.calculator;
 
 public class FuturesContract {
 
-    private String contractName;  // Field names start with lowercase
+    private String contractName;
     private double pointValue;
     private double contractSize;
 
-    // Constructor to initialize the contract
     public FuturesContract(String contractName, double pointValue, double contractSize) {
         this.contractName = contractName;
         this.pointValue = pointValue;
         this.contractSize = contractSize;
     }
 
-    // Getter methods
     public String getContractName() {
         return contractName;
     }
@@ -26,7 +24,6 @@ public class FuturesContract {
         return contractSize;
     }
 
-    // Optional: Override toString for better debugging
     @Override
     public String toString() {
         return "FuturesContract{" +
