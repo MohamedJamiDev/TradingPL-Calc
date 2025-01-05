@@ -4,15 +4,16 @@ import java.util.Scanner;
 
 public class TradingApp {
 
+
     public static void main(String[] args) {
         ContractManager contractManager = new ContractManager();
         contractManager.listAllContracts();
 
         Scanner scanner = new Scanner(System.in);
+
         System.out.print("Enter the name of the contract you want to trade: ");
         String contractName = scanner.nextLine();
 
-        // Retrieve the selected contract
         FuturesContract selectedContract = contractManager.getContractByName(contractName);
 
         if (selectedContract == null) {
@@ -20,10 +21,17 @@ public class TradingApp {
             return;
         }
 
-
         System.out.println("Selected Contract: " + selectedContract.getContractName());
         System.out.println("Point Value: $" + selectedContract.getPointValue());
         System.out.println("Contract Size: " + selectedContract.getContractSize());
+
+        System.out.print("Are you buying or selling? (Enter 'buy' or 'sell'): ");
+        String tradeDirection = scanner.nextLine().toLowerCase();
+
+        if (!tradeDirection.equals("buy") && !tradeDirection.equals("sell")) {
+            System.out.println("Invalid trade direction. Please enter 'buy' or 'sell'.");
+            return;
+        }
 
         System.out.print("Enter entry price: ");
         double entryPrice = scanner.nextDouble();
@@ -32,9 +40,8 @@ public class TradingApp {
         System.out.print("Enter number of contracts traded: ");
         int numberOfContracts = scanner.nextInt();
 
-        double profitOrLoss = ProfitLossCalculator.calculateProfitOrLoss(
-                entryPrice, exitPrice, numberOfContracts, selectedContract
-        );
+        double profitOrLoss = calculateProfitOrLoss(entryPrice, exitPrice, numberOfContracts, selectedContract, tradeDirection);
+
         if (profitOrLoss > 0) {
             System.out.println("Profit: $" + profitOrLoss);
         } else if (profitOrLoss < 0) {
@@ -44,8 +51,17 @@ public class TradingApp {
         }
 
         scanner.close();
+    }
 
+    public static double calculateProfitOrLoss(double entryPrice, double exitPrice,
+                                               int numberOfContracts, FuturesContract contract, String tradeDirection) {
+        double pointDifference;
+
+        if (tradeDirection.equals("buy")) {
+            pointDifference = exitPrice - entryPrice;
+        } else {
+            pointDifference = entryPrice - exitPrice;
+        }
+        return pointDifference * contract.getPointValue() * numberOfContracts;
     }
 }
-
-

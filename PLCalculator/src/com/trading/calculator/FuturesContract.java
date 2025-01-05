@@ -6,7 +6,6 @@ public class FuturesContract {
     private double pointValue;
     private double contractSize;
 
-    // Constructor to initialize the contract
     public FuturesContract(String contractName, double pointValue, double contractSize) {
         this.contractName = contractName;
         this.pointValue = pointValue;
