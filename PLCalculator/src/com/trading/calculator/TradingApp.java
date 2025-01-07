@@ -1,5 +1,7 @@
 package com.trading.calculator;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Scanner;
 
 public class TradingApp {
@@ -40,12 +42,13 @@ public class TradingApp {
         System.out.print("Enter number of contracts traded: ");
         int numberOfContracts = scanner.nextInt();
 
-        double profitOrLoss = calculateProfitOrLoss(entryPrice, exitPrice, numberOfContracts, selectedContract, tradeDirection);
+        double rawProfitOrLoss = calculateProfitOrLoss(entryPrice, exitPrice, numberOfContracts, selectedContract, tradeDirection);
+        BigDecimal profitOrLoss = BigDecimal.valueOf(rawProfitOrLoss).setScale(2, RoundingMode.HALF_UP);
 
-        if (profitOrLoss > 0) {
+        if (profitOrLoss.doubleValue() > 0) {
             System.out.println("Profit: $" + profitOrLoss);
-        } else if (profitOrLoss < 0) {
-            System.out.println("Loss: $" + Math.abs(profitOrLoss));
+        } else if (profitOrLoss.doubleValue() < 0) {
+            System.out.println("Loss: $" + profitOrLoss.abs());
         } else {
             System.out.println("Break-even (no profit or loss)");
         }
