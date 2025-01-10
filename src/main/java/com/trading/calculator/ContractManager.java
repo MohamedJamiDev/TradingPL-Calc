@@ -5,9 +5,10 @@ import java.util.Map;
 
 public class ContractManager {
 
-    private final Map<String, FuturesContract> contracts = new HashMap<>();
+    private final Map<String, FuturesContract> contracts = new HashMap();
 
     public ContractManager() {
+
         addContract(new FuturesContract("E-mini NASDAQ", 20.0, 100000.0));
         addContract(new FuturesContract("Gold", 100.0, 100.0));
         addContract(new FuturesContract("Crude Oil", 10.0, 1000.0));
